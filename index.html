@@ -3,20 +3,25 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/master.css" media="screen" title="no title">
-    <script src="/scripts/main.js" charset="utf-8"></script>
+    <script src="scripts/main.js" charset="utf-8"></script>
     <title>Black Jack</title>
   </head>
   <body>
     <header>HEADER</header>
     <main>
-      <div Id="dealer">Dealer here</div>
+      <div Id="dealer">Dealer here
+        <div Id="dealer-info">
+        </div>
+        <div Id="dealer-center">Dealer Center
+        </div>
+      </div>
       <div Id="player">
         <div Id="player-left" class="player">Player Left
           <form>
             <input Id="bet-amount" type="number" value=""><br/>
             <button Id="bet-more" type="button">+</button>
             <button Id="bet-less" type="button">-</button>
-            <input Id="bet-submit" type="submit" value="START"></input>
+            <button Id="bet-submit" type="button">START</input>
           </form>
         </div>
         <div Id="player-center" class="player">Player Center</div>
@@ -32,6 +37,8 @@
     </main>
     <side>SIDE<hr/>
     </side>
-    <footer>FOOTER</footer>
+    <footer>FOOTER
+      <p Id="narrative">The player must enter its bet and press START.</p>
+    </footer>
   </body>
 </html>
