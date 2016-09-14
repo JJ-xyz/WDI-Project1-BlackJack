@@ -19,6 +19,8 @@ console.log("initialSet of Table in progress...");
     displayPlayerCards(firstPlayPlayer);
     var secondPlayPlayer = nextCard();
     displayPlayerCards(secondPlayPlayer);
+    var totalPoints = verifyStatus(cardsPlayer);
+    console.log("===Initial sum", totalPoints);
     var firstPlayDealer = nextCard();
     displayDealerCards(firstPlayDealer);
     var secondPlayDealer = nextCard();
@@ -30,14 +32,50 @@ console.log("initialSet of Table in progress...");
     // here: hit routine by yhr player
     var nextPlayPlayer = nextCard();
     displayPlayerCards(nextPlayPlayer);
+    var totalPoints = verifyStatus(cardsPlayer);
+    console.log("total Points Player:", totalPoints);
+    if (totalPoints > 21) {
+        storyTeller(4,totalPoints);
+        displayResults('BUSTED');
+        logRegister('LOST',currentBet);
+    }
+  }
+
+  var displayResults = function(info) {
+    // display the resuls of the game
+    document.getElementById("dealer-info").innerHTML =
+    "GAME OVER<br/><h3>"+info+"</h3>"
+    console.log(info);
+
 
 
   }
 
-  var displayResults = function() {
-    // display the resuls of the game
+  var verifyStatus = function(list) {
+    // verify the counting of cards
+    var sumCardsA = 0;
+    var sumCardsB = 0;
+    for (var i=0; i<list.length; i++) {
+      var value = Number(list[i].slice(1,list[i].length));
+      if (value == 1) {
+        sumCardsA += 1;
+        sumCardsB += 11
+        ;
+      } else if (value > 10) {
+        sumCardsA += 10;
+        sumCardsB += 10;
+      } else {
+        sumCardsA += value;
+        sumCardsB += value;
+      }
+      //console.log(value, "added to", sumCardsA, "or", sumCardsB);
+    }
 
-
+    if (sumCardsB > 21) {
+      return sumCardsA;
+    } else {
+      return sumCardsB;
+    }
   }
 
   var betEntry = function() {
@@ -60,17 +98,42 @@ console.log("initialSet of Table in progress...");
 
   var dealerClosing = function() {
     // do the finishing of the hand
-
-
-
+  console.log("here comes the calculation");
+  var playerPoints = verifyStatus(cardsPlayer);
+  var totalPoints = verifyStatus(cardsDealer);
+  console.log("total Points Dealer:", totalPoints);
+  while (totalPoints < 17) {
+    var nextPlayDealer = nextCard();
+    displayDealerCards(nextPlayDealer);
+    totalPoints = verifyStatus(cardsDealer);
+    console.log("total Points Dealer:", totalPoints);
   }
+  if (playerPoints > totalPoints && totalPoints <= 21) {
+      displayResults('WIN!!');
+      logRegister('WIN',currentBet);
+    } else if (playerPoints == totalPoints) {
+      displayResults('MATCH');
+      logRegister('MATCH',currentBet);
+    } else if (totalPoints > 21) {
+      displayResults('WIN!!');
+      logRegister('WIN',currentBet);
+    } else {
+      displayResults('LOSS');
+      logRegister('LOSS',currentBet);
+    }
 
-  var logRegister = function() {
+}
+
+  var logRegister = function(result,bet) {
     // display the result log
+  var logItem = document.createElement('p');
+  logItem.className = result;
+  logItem.className += " log";
 
-
-
+  logItem.textContent = result+" hand of $"+bet;
+  document.getElementById('log-list').appendChild(logItem);
   }
+
   var increaseBet = function() {
     // add 1 to the bet ammount
 
@@ -115,6 +178,15 @@ console.log("initialSet of Table in progress...");
     // ** console.log("cardsPlayer",cardsPlayer);
   }
 
+  var newHand = function() {
+    activeDeck = [];
+    cardsPlayer = [];
+    cardsDealer = [];
+    currentBet = 0;
+    document.getElementById("dealer-center").innerHTML = '';
+    document.getElementById("player-center").innerHTML = '';
+    document.getElementById("dealer-info").innerHTML = '';
+  }
 
   var displayBet = function(bet) {
     // display the current bet
@@ -154,6 +226,10 @@ console.log("initialSet of Table in progress...");
         document.getElementById("narrative").textContent =
         "NO MORE Cards to play. Re-Start to continue playing";
         break;
+      case 4:
+        document.getElementById("narrative").textContent =
+        "You are BUSTED. Your total cards value is "+text1;
+        break;
       default:
         document.getElementById("narrative").textContent =
         "Keep playing - but there is some error in the story";
@@ -165,4 +241,6 @@ console.log("initialSet of Table in progress...");
 
   document.querySelector('#bet-submit').onclick = betEntry;
   document.querySelector('#hit-me').onclick = playerHit;
+  document.querySelector('#hit-stop').onclick = dealerClosing;
+  document.querySelector('#new-hand').onclick = newHand;
 }
