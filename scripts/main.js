@@ -8,7 +8,7 @@ window.onload = function() {
   var activeDeck = [];
   var cardsPlayer = [];
   var cardsDealer = [];
-  var bankRoll = [];
+  var bankRoll = 2000;
   var currentBet = 0;
 
   var initialSet = function() {
@@ -37,7 +37,8 @@ console.log("initialSet of Table in progress...");
     if (totalPoints > 21) {
         storyTeller(4,totalPoints);
         displayResults('BUSTED');
-        logRegister('LOST',currentBet);
+        bankRoll -= currentBet;
+        logRegister('LOST',currentBet,bankRoll);
     }
   }
 
@@ -110,27 +111,29 @@ console.log("initialSet of Table in progress...");
   }
   if (playerPoints > totalPoints && totalPoints <= 21) {
       displayResults('WIN!!');
-      logRegister('WIN',currentBet);
+      bankRoll += currentBet;
+      logRegister('WIN',currentBet,bankRoll);
     } else if (playerPoints == totalPoints) {
       displayResults('MATCH');
-      logRegister('MATCH',currentBet);
+      logRegister('MATCH',currentBet,bankRoll);
     } else if (totalPoints > 21) {
       displayResults('WIN!!');
-      logRegister('WIN',currentBet);
+      bankRoll += currentBet;
+      logRegister('WIN',currentBet,bankRoll);
     } else {
       displayResults('LOSS');
-      logRegister('LOSS',currentBet);
+      bankRoll -= currentBet;
+      logRegister('LOSS',currentBet,bankRoll);
     }
 
 }
 
-  var logRegister = function(result,bet) {
+  var logRegister = function(action,amount,total) {
     // display the result log
   var logItem = document.createElement('p');
-  logItem.className = result;
+  logItem.className = action;
   logItem.className += " log";
-
-  logItem.textContent = result+" hand of $"+bet;
+  logItem.textContent = action+" on $"+amount+" Now:"+total;
   document.getElementById('log-list').appendChild(logItem);
   }
 
@@ -270,6 +273,7 @@ console.log("initialSet of Table in progress...");
   // the acction start here...
   console.log("Waiting for action...");
   storyTeller(0,"");
+  logRegister("Starting",bankRoll,bankRoll)
   //betDisplay([1,5,10,50,100,500]);
   document.querySelector('#bet-submit').onclick = betEntry;
   document.querySelector('#hit-me').onclick = playerHit;
