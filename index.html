@@ -17,12 +17,23 @@
       </div>
       <div Id="player">
         <div Id="player-left" class="player">Player Left
-          <form>
+
+          <form Id="forma">
             <input Id="bet-amount" type="number" value=""><br/>
-            <button Id="bet-more" type="button">+</button>
-            <button Id="bet-less" type="button">-</button>
+
+              <div Id="Chips">
+                
+                <!-- http://www.w3schools.com/css/css3_buttons.asp -->
+
+                <button Id="bet1" class="more" type="button">1</button>
+                <button Id="bet5" class="more" type="button">5</button>
+                <button Id="bet10" class="more" type="button">10</button>
+                <button Id="bet50" class="more" type="button">50</button><br/>
+              </div>
+
             <button Id="bet-submit" type="button">START</input>
           </form>
+
         </div>
         <div Id="player-center" class="player">Player Center</div>
         <div Id="player-right" class="player">Player right</br>
@@ -40,7 +51,7 @@
       <h2>Bankroll</h2>
     </side>
     <footer>FOOTER
-      <p Id="narrative">The player must enter its bet and press START.</p>
+      <marquee Id="narrative"></p>
     </footer>
   </body>
 </html>
