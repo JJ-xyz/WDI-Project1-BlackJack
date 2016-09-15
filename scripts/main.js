@@ -39,6 +39,9 @@ console.log("initialSet of Table in progress...");
         displayResults('BUSTED');
         bankRoll -= currentBet;
         logRegister('LOST',currentBet,bankRoll);
+        document.getElementById('new-hand').removeAttribute('disabled','');
+        document.getElementById('hit-me').setAttribute('disabled','');
+        document.getElementById('hit-stop').setAttribute('disabled','');
     }
   }
 
@@ -47,8 +50,6 @@ console.log("initialSet of Table in progress...");
     document.getElementById("dealer-info").innerHTML =
     "GAME OVER<br/><h3>"+info+"</h3>"
     console.log(info);
-
-
 
   }
 
@@ -90,6 +91,10 @@ console.log("initialSet of Table in progress...");
       } else {
         storyTeller(1,userBet);
         displayBet(userBet);
+        document.getElementById('bet-clear').setAttribute('disabled','');
+        document.getElementById('bet-submit').setAttribute('disabled','');
+        document.getElementById('hit-me').removeAttribute('disabled','');
+        document.getElementById('hit-stop').removeAttribute('disabled','');
         initialSet();
       }
 
@@ -99,6 +104,8 @@ console.log("initialSet of Table in progress...");
   var dealerClosing = function() {
     // do the finishing of the hand
   console.log("here comes the calculation");
+  document.getElementById('hit-me').setAttribute('disabled','');
+  document.getElementById('hit-stop').setAttribute('disabled','');
   var playerPoints = verifyStatus(cardsPlayer);
   var totalPoints = verifyStatus(cardsDealer);
   console.log("total Points Dealer:", totalPoints);
@@ -124,7 +131,9 @@ console.log("initialSet of Table in progress...");
       bankRoll -= currentBet;
       logRegister('LOSS',currentBet,bankRoll);
     }
-
+  document.getElementById('new-hand').removeAttribute('disabled','');
+  // document.getElementById('new-hand').setAttribute('disabled','');
+  // document.getElementById('new-hand').setAttribute('disabled','');
 }
 
   var logRegister = function(action,amount,total) {
@@ -192,6 +201,11 @@ console.log("initialSet of Table in progress...");
     document.getElementById("dealer-center").innerHTML = '';
     document.getElementById("player-center").innerHTML = '';
     document.getElementById("dealer-info").innerHTML = '';
+    document.getElementById("bet-amount").textContent = currentBet;
+    document.getElementById('new-hand').setAttribute('disabled','');
+    document.getElementById('bet-clear').removeAttribute('disabled','');
+    document.getElementById('bet-submit').removeAttribute('disabled','');
+
     storyTeller(0,"");
 
   }

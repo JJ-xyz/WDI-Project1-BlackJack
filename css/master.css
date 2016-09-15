@@ -55,11 +55,11 @@ footer {
 
 }
 /*start removing*/
-#bet-amount {
+/*#bet-amount {
   padding: 10px;
   width: 70%;
 
-}
+}*/
 button {
   padding: 10px;
 }
@@ -75,6 +75,10 @@ button {
 #narrative {
   padding: 10px;
   color: grey;
+}
+.disable: {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .card-item {
   width: 25px;
