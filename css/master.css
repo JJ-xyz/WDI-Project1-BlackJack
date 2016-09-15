@@ -80,5 +80,10 @@ footer {
   height: 35px;
   float: left;
   background-color: yellow;
+}
+.chip {
+  height: 20px;
+  width: 20px;
+  float:left;
 
 }

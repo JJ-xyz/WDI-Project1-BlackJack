@@ -139,6 +139,7 @@ console.log("initialSet of Table in progress...");
 
   var increaseBet = function() {
     // add 1 to the bet ammount
+
     console.log('increase');
     console.log(this);
     //var amount = document.getElementById('bet-amount').value;
@@ -220,27 +221,26 @@ console.log("initialSet of Table in progress...");
       }
   }
 
-  // **** Intento de crear la forma de entrada de datos ****
-  //
-  // var betDisplay = function() {
-  //   // prepare display for bet entry
-  //   var entryform = document.getElementById('forma')
-  //   var input = document.createElement('input');
-  //   input.setAttribute('placeholder', "Enter yout bet");
-  //   input.setAttribute('Id',"bet-amount");
-  //   input.setAttribute('type', "text");
-  //   entryform.appendChild(input);
-  //
-  //   var button = document.createElement('button');
-  //   button.setAttribute('Id',"bet-submit")
-  //   button.textContent = "START";
-  //   entryform.appendChild(button);
-  //
-  //   button.addEventListener('click', betEntry);
-  //
-  //
-  //
-  // }
+
+  var createChips = function(list) {
+    // prepare chips display for bet entry
+    var zone = document.getElementById("Chips");
+    for (i=0; i<list.length; i++) {
+      var chip = document.createElement('div');
+      chip.classList.add('chip');
+      chip.dataset.chip = list[i];
+      chip.textContent = list[i];
+      zone.appendChild(chip);
+      chip.addEventListener('click', addmoney);
+    }
+  }
+
+  var addmoney = function() {
+    var userBet = document.getElementById("bet-amount").value;
+    var more = this.dataset.chip;
+    var sum = Number(userBet) + Number(more);
+    document.getElementById("bet-amount").value = sum;
+  }
 
   var storyTeller = function(a,text1) {
     switch (a) {
@@ -274,7 +274,7 @@ console.log("initialSet of Table in progress...");
   console.log("Waiting for action...");
   storyTeller(0,"");
   logRegister("Starting",bankRoll,bankRoll)
-  //betDisplay([1,5,10,50,100,500]);
+  createChips([1,5,10,50,100,500]);
   document.querySelector('#bet-submit').onclick = betEntry;
   document.querySelector('#hit-me').onclick = playerHit;
   document.querySelector('#hit-stop').onclick = dealerClosing;
