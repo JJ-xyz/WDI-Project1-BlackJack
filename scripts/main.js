@@ -82,11 +82,10 @@ console.log("initialSet of Table in progress...");
   var betEntry = function() {
     // accept the game bet
   console.log("preparing for Data Entry...");
-      var userBet = document.getElementById("bet-amount").value;
+      var userBet = document.getElementById("bet-amount").textContent;
   // ** console.log("Player bet:", userBet);
 
-      if (Number(userBet) == NaN || Number(userBet) == null ||
-          Number(userBet) == undefined || Number(userBet) <= 0 ) {
+      if (Number(userBet) <= 0 ) {
         storyTeller(2,userBet);
       } else {
         storyTeller(1,userBet);
@@ -226,7 +225,7 @@ console.log("initialSet of Table in progress...");
     // prepare chips display for bet entry
     var zone = document.getElementById("Chips");
     for (i=0; i<list.length; i++) {
-      var chip = document.createElement('div');
+      var chip = document.createElement('button');
       chip.classList.add('chip');
       chip.dataset.chip = list[i];
       chip.textContent = list[i];
@@ -236,10 +235,14 @@ console.log("initialSet of Table in progress...");
   }
 
   var addmoney = function() {
-    var userBet = document.getElementById("bet-amount").value;
+    var userBet = document.getElementById("bet-amount").textContent;
     var more = this.dataset.chip;
     var sum = Number(userBet) + Number(more);
-    document.getElementById("bet-amount").value = sum;
+    document.getElementById("bet-amount").textContent = sum;
+  }
+
+  var clearmoney = function() {
+    document.getElementById("bet-amount").textContent = "0";
   }
 
   var storyTeller = function(a,text1) {
@@ -279,5 +282,5 @@ console.log("initialSet of Table in progress...");
   document.querySelector('#hit-me').onclick = playerHit;
   document.querySelector('#hit-stop').onclick = dealerClosing;
   document.querySelector('#new-hand').onclick = newHand;
-  //document.querySelector('.more').onclick = increaseBet;
+  document.querySelector('#bet-clear').onclick = clearmoney;
 }
