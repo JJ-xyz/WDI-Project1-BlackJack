@@ -1,6 +1,12 @@
 body {
   border: 1px solid black;
-  height: 100px;
+  width: 800px;
+  height: 500px;
+  /*background: palegreen;*/
+  /*background: url(../images/blackjacktable.png);*/
+  background-size: cover;
+  background-position: center;
+
 }
 header {
   border: 1px solid black;
@@ -11,6 +17,7 @@ main {
   height: 500px;
   width: 74%;
   float: left;
+
 }
 side {
   border: 1px solid black;
