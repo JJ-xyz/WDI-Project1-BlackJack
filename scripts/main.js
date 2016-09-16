@@ -252,7 +252,12 @@ console.log("initialSet of Table in progress...");
     var userBet = document.getElementById("bet-amount").textContent;
     var more = this.dataset.chip;
     var sum = Number(userBet) + Number(more);
-    document.getElementById("bet-amount").textContent = sum;
+    if (sum > bankRoll) {
+      storyTeller(5,more);
+    } else {
+      document.getElementById("bet-amount").textContent = sum;
+    }
+
   }
 
   var clearmoney = function() {
@@ -281,9 +286,13 @@ console.log("initialSet of Table in progress...");
         document.getElementById("narrative").textContent =
         "You are BUSTED. Your total cards value is "+text1;
         break;
+      case 5:
+        document.getElementById("narrative").textContent =
+        "UPS!!  there is no more chips to bet. the additional "+text1+" is too much.";
+        break;
       default:
         document.getElementById("narrative").textContent =
-        "Keep playing - but there is some error in the story";
+        "Oh-oh.  There is something wrong.  I do not know what it is...";
       }
   }
 
