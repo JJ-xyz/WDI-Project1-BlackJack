@@ -7,44 +7,28 @@
     <title>Black Jack</title>
   </head>
   <body>
-    <header>HEADER</header>
+    <header>
+      <div Id="dealer-info"></div>
+      <div Id="dealer-center"></div>
+    </header>
+
     <main>
-      <div Id="dealer">Dealer here
-        <div Id="dealer-info">
-        </div>
-        <div Id="dealer-center">Dealer Center
-        </div>
+      <div Id="player-left" class="player">
+        <h4 Id="bet-amount">0</h4>
+        <div Id="Chips"></div>
+        <button Id="bet-clear" type="button">RESET</input>
+        <button Id="bet-submit" type="button">DEAL</input>
       </div>
-      <div Id="player">
-        <div Id="player-left" class="player">Player Left
 
+      <div Id="player-center" class="player"></div>
 
-            <!-- <input Id="bet-amount" type="number" value=""><br/> -->
-            <h4 Id="bet-amount">0</h4>
-              <div Id="Chips">
-
-                <!-- http://www.w3schools.com/css/css3_buttons.asp -->
-
-                <!-- <button Id="bet1" class="more" type="button">1</button>
-                <button Id="bet5" class="more" type="button">5</button>
-                <button Id="bet10" class="more" type="button">10</button>
-                <button Id="bet50" class="more" type="button">50</button><br/> -->
-
-              </div>
-
-            <button Id="bet-clear" type="button">RESET</input>
-            <button Id="bet-submit" type="button">DEAL</input>
-
-        </div>
-        <div Id="player-center" class="player">Player Center</div>
-        <div Id="player-right" class="player">Player right</br>
+      <div Id="player-right" class="player">Player right</br>
           <button Id="hit-me" disabled>  HIT  </button>
           <button Id="hit-stop" disabled>STAND</button>
-
           <button Id="new-hand" disabled>NEW HAND</button>
-        </div>
       </div>
     </main>
+    
     <side Id="log-list">
       <h2>Bankroll</h2>
     </side>
