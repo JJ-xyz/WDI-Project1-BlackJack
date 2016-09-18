@@ -7,31 +7,27 @@
     <title>Black Jack</title>
   </head>
   <body>
-    <header>
+
       <div Id="dealer-info"></div>
-      <div Id="dealer-center"></div>
-    </header>
+      <div Id="dealer-center" class="container"></div>
 
-    <main>
-      <div Id="player-left" class="player">
-        <h4 Id="bet-amount">0</h4>
-        <div Id="Chips"></div>
-        <button Id="bet-clear" type="button">RESET</input>
-        <button Id="bet-submit" type="button">DEAL</input>
+      <div Id="betting"><h4 Id="bet-amount"> </h4></div>
+      <div Id="Chips"></div>
+
+      <div Id="start">
+        <button Id="bet-clear" type="button">CLEAR</input>
+        <button Id="bet-submit" type="button">START</input>
+        <button Id="hit-me" disabled>  HIT  </button>
+        <button Id="hit-stop" disabled>STAND</button>
+        <button Id="new-hand" disabled>NEW HAND</button>
       </div>
 
-      <div Id="player-center" class="player"></div>
+      <div Id="player-center" class="container"></div>
 
-      <div Id="player-right" class="player">Player right</br>
-          <button Id="hit-me" disabled>  HIT  </button>
-          <button Id="hit-stop" disabled>STAND</button>
-          <button Id="new-hand" disabled>NEW HAND</button>
-      </div>
-    </main>
-    
     <side Id="log-list">
       <h2>Bankroll</h2>
     </side>
+
     <footer>FOOTER
       <marquee Id="narrative"></p>
     </footer>

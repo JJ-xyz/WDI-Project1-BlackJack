@@ -48,7 +48,9 @@ console.log("initialSet of Table in progress...");
   var displayResults = function(info) {
     // display the resuls of the game
     document.getElementById("dealer-info").innerHTML =
-    "GAME OVER<br/><h3>"+info+"</h3>"
+    "<h3>"+info+"</h3>"
+    // "GAME OVER<br/><h3>"+info+"</h3>"
+
     console.log(info);
 
   }
@@ -213,7 +215,9 @@ console.log("initialSet of Table in progress...");
   var displayBet = function(bet) {
     // display the current bet
     document.getElementById("dealer-info").innerHTML =
-    "Current bet<br/><h3>"+bet+"</h3>"
+    "<h3>"+bet+"</h3>"
+    // "Current bet<br/><h3>"+bet+"</h3>"
+
     currentBet = Number(bet);
     console.log("in process current bet",currentBet);
   }
