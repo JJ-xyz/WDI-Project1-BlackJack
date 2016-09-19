@@ -112,6 +112,7 @@ p {
   top: -492px;
   left: -158px;
   position: absolute;
+  display: none;
 }
 .sprite {
   position: relative;

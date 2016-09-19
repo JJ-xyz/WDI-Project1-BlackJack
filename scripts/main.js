@@ -17,19 +17,16 @@ window.onload = function() {
 
   var initialSet = function() {
     // here: first two cards.
-console.log("initialSet of Table in progress...");
     activeDeck = cardDeck;
     var firstPlayPlayer = nextCard();
     displayPlayerCards(firstPlayPlayer);
     var secondPlayPlayer = nextCard();
     displayPlayerCards(secondPlayPlayer);
     var totalPoints = verifyStatus(cardsPlayer);
-    console.log("===Initial sum", totalPoints);
     var firstPlayDealer = nextCard();
     displayDealerCards(firstPlayDealer);
     var secondPlayDealer = nextCard();
     displayDealerCards(secondPlayDealer);
-
   }
 
   var playerHit = function() {
@@ -37,7 +34,6 @@ console.log("initialSet of Table in progress...");
     var nextPlayPlayer = nextCard();
     displayPlayerCards(nextPlayPlayer);
     var totalPoints = verifyStatus(cardsPlayer);
-    console.log("total Points Player:", totalPoints);
     if (totalPoints > 21) {
         storyTeller(4,totalPoints);
         displayResults('BUSTED');
@@ -53,10 +49,6 @@ console.log("initialSet of Table in progress...");
     // display the resuls of the game
     document.getElementById("dealer-info").innerHTML =
     "<h3>"+info+"</h3>"
-    // "GAME OVER<br/><h3>"+info+"</h3>"
-
-    console.log(info);
-
   }
 
   var verifyStatus = function(list) {
@@ -67,8 +59,7 @@ console.log("initialSet of Table in progress...");
       var value = Number(list[i].slice(1,list[i].length));
       if (value == 1) {
         sumCardsA += 1;
-        sumCardsB += 11
-        ;
+        sumCardsB += 11;
       } else if (value > 10) {
         sumCardsA += 10;
         sumCardsB += 10;
@@ -76,7 +67,6 @@ console.log("initialSet of Table in progress...");
         sumCardsA += value;
         sumCardsB += value;
       }
-      //console.log(value, "added to", sumCardsA, "or", sumCardsB);
     }
 
     if (sumCardsB > 21) {
@@ -88,9 +78,7 @@ console.log("initialSet of Table in progress...");
 
   var betEntry = function() {
     // accept the game bet
-  console.log("preparing for Data Entry...");
       var userBet = document.getElementById("bet-amount").textContent;
-  // ** console.log("Player bet:", userBet);
 
       if (Number(userBet) <= 0 ) {
         storyTeller(2,userBet);
@@ -101,25 +89,23 @@ console.log("initialSet of Table in progress...");
         document.getElementById('bet-submit').setAttribute('disabled','');
         document.getElementById('hit-me').removeAttribute('disabled','');
         document.getElementById('hit-stop').removeAttribute('disabled','');
+        document.getElementById("Chips").innerHTML = '';
+        document.getElementById("bet-amount").textContent = ' ';
         initialSet();
       }
-
-
   }
-
   var dealerClosing = function() {
     // do the finishing of the hand
-  console.log("here comes the calculation");
   document.getElementById('hit-me').setAttribute('disabled','');
   document.getElementById('hit-stop').setAttribute('disabled','');
   var playerPoints = verifyStatus(cardsPlayer);
   var totalPoints = verifyStatus(cardsDealer);
-  console.log("total Points Dealer:", totalPoints);
+
   while (totalPoints < 17) {
     var nextPlayDealer = nextCard();
     displayDealerCards(nextPlayDealer);
     totalPoints = verifyStatus(cardsDealer);
-    console.log("total Points Dealer:", totalPoints);
+
   }
   if (playerPoints > totalPoints && totalPoints <= 21) {
       displayResults('WIN!!');
@@ -137,12 +123,15 @@ console.log("initialSet of Table in progress...");
       bankRoll -= currentBet;
       logRegister('LOSS',currentBet,bankRoll);
     }
+
   document.getElementById('new-hand').removeAttribute('disabled','');
-  // document.getElementById('new-hand').setAttribute('disabled','');
-  // document.getElementById('new-hand').setAttribute('disabled','');
   var firstcard = document.getElementById('dealer-center').children[0];
   firstcard.children[0].style.top = "-"+firstDealer[1]+"px";
   firstcard.children[0].style.left = "-"+firstDealer[0]+"px";
+
+  if (bankRoll == 0) {
+    alert ('Game Over');
+  }
 }
 
   var logRegister = function(action,amount,total) {
@@ -154,36 +143,15 @@ console.log("initialSet of Table in progress...");
   document.getElementById('log-list').appendChild(logItem);
   }
 
-  var increaseBet = function() {
-    // add 1 to the bet ammount
-
-    console.log('increase');
-    console.log(this);
-    //var amount = document.getElementById('bet-amount').value;
-    //var moreqty = document.getElementByClass('more').id;
-
-
-  }
-
-  var decreaseBet = function() {
-    // substract 1 to the bet ammount
-
-
-  }
-
   var displayDealerCards = function(card) {
+    // disply the dealer cards
     cardsDealer.push(card[1]);
     activeDeck.splice(card[0],1);
-    // ** console.log("removing pos ---->["+card[0]+"] from activeDeck" );
-    // ** console.log("activeDeck--->", activeDeck);
-    // ** console.log("cardsDealer--->", cardsDealer);
     var cardItem = document.createElement('div');
     cardItem.className += "card-item sprite";
     cardItem.dataset.cardPos = cardsDealer.length - 1;
     cardItem.textContent = card[1];
     document.getElementById('dealer-center').appendChild(cardItem);
-    // ** console.log("activedeck",activeDeck);
-    // ** console.log("cardsPlayer",cardsPlayer);
     var exactImage = getCardImage(card[1]);
     var cardImage = document.createElement('img');
     cardImage.setAttribute("src","images/cards.png");
@@ -203,26 +171,15 @@ console.log("initialSet of Table in progress...");
   }
 
   var displayPlayerCards = function(card) {
+    // display the player cards
     cardsPlayer.push(card[1]);
     activeDeck.splice(card[0],1);
-
-
-
-    // var cardImage = pictureCard(card[1]);
-    // ** console.log("removing pos ---->["+card[0]+"] from activeDeck" );
-    // ** console.log("activeDeck--->", activeDeck);
-    // ** console.log("cardsPlayer--->", cardsPlayer);
     var cardItem = document.createElement('div');
     cardItem.className += "card-item sprite";
     cardItem.dataset.cardPos = cardsPlayer.length - 1;
     cardItem.textContent = card[1];
     document.getElementById('player-center').appendChild(cardItem);
-    /* more here */
 
-    // var c = document.getElementById('player-center').lastChild;
-    // var ctx = c.getContext("2d");
-    // var img = document.getElementById('img-of-img');
-    // ctx.drawImage(img,0,0,79,123,0,0);
     var exactImage = getCardImage(card[1]);
     var cardImage = document.createElement('img');
     cardImage.setAttribute("src","images/cards.png");
@@ -230,26 +187,17 @@ console.log("initialSet of Table in progress...");
     cardImage.style.top = "-"+exactImage[1]+"px";
     cardImage.style.left = "-"+exactImage[0]+"px";
     cardItem.appendChild(cardImage);
-
-
-    // ** console.log("activedeck",activeDeck);
-    // ** console.log("cardsPlayer",cardsPlayer);
-
-
-
-    // cardImage.style.position = 'absolute';
-    //cardItem.appendChild(cardImage);
-
-
   }
 
   var newHand = function() {
+    // reset counters and tyable for new hand
     activeDeck = [];
     cardsPlayer = [];
     cardsDealer = [];
     currentBet = 0;
     firstDraw = true;
     firstDealer = [];
+    createChips([1,5,10,50,100,500]);
     document.getElementById("dealer-center").innerHTML = '';
     document.getElementById("player-center").innerHTML = '';
     document.getElementById("dealer-info").innerHTML = '';
@@ -257,19 +205,14 @@ console.log("initialSet of Table in progress...");
     document.getElementById('new-hand').setAttribute('disabled','');
     document.getElementById('bet-clear').removeAttribute('disabled','');
     document.getElementById('bet-submit').removeAttribute('disabled','');
-
     storyTeller(0,"");
-
   }
 
   var displayBet = function(bet) {
     // display the current bet
     document.getElementById("dealer-info").innerHTML =
-    "<h3>"+bet+"</h3>"
-    // "Current bet<br/><h3>"+bet+"</h3>"
-
+    "<h3>"+bet+"</h3>";
     currentBet = Number(bet);
-    console.log("in process current bet",currentBet);
   }
 
   var nextCard = function() {
@@ -278,8 +221,6 @@ console.log("initialSet of Table in progress...");
     if (activeDeck.length > 0 ) {
       theCard[0] = (Math.floor(Math.random()*activeDeck.length+1))-1;
       theCard[1] = activeDeck[theCard[0]];
-      console.log("selected number", theCard);
-      console.log("selected card", activeDeck[theCard[0]]);
       return theCard;
       }
       else {
@@ -319,10 +260,9 @@ console.log("initialSet of Table in progress...");
   }
 
   var getCardImage = function(onecard) {
-    console.log("onecard",onecard);
+    // get the card images
     var alp = onecard.slice(0,1);
     var num = onecard.slice(1,onecard.length);
-    console.log(">>>>>>>>>>>>>>>>>",alp, num);
     var y = 0;
     if (alp == "D") { y = 1};
     if (alp == "H") { y = 2};
@@ -330,11 +270,11 @@ console.log("initialSet of Table in progress...");
     var posxy = [];
     posxy[0] = Number(cardwpx) * (Number(num)-1);
     posxy[1] = Number(cardhpx) * Number(y);
-    console.log(">>>>>Coord>>>>>>>",posxy);
     return posxy;
   }
 
   var storyTeller = function(a,text1) {
+    // keep track of exceptions - may be removed.
     switch (a) {
       case 0:
         document.getElementById("narrative").textContent =
@@ -367,7 +307,6 @@ console.log("initialSet of Table in progress...");
   }
 
   // the acction start here...
-  console.log("Waiting for action...");
   storyTeller(0,"");
   logRegister("Starting",bankRoll,bankRoll)
   createChips([1,5,10,50,100,500]);
