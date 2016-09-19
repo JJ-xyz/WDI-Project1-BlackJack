@@ -1,15 +1,17 @@
 console.log("=== Black Jack ===");
 
 window.onload = function() {
-  var cardDeck = ["H1","H2","H3","H4","H5","H6","H7","H8","H9","H10","H11","H12","H13",
-                  "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13",
+  var cardDeck = ["T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13",
                   "D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","D12","D13",
+                  "H1","H2","H3","H4","H5","H6","H7","H8","H9","H10","H11","H12","H13",
                   "S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12","S13"];
   var activeDeck = [];
   var cardsPlayer = [];
   var cardsDealer = [];
   var bankRoll = 2000;
   var currentBet = 0;
+  var cardwpx = 79;
+  var cardhpx = 123;
 
   var initialSet = function() {
     // here: first two cards.
@@ -171,28 +173,60 @@ console.log("initialSet of Table in progress...");
     // ** console.log("activeDeck--->", activeDeck);
     // ** console.log("cardsDealer--->", cardsDealer);
     var cardItem = document.createElement('div');
-    cardItem.className += "card-item";
+    cardItem.className += "card-item sprite";
     cardItem.dataset.cardPos = cardsDealer.length - 1;
     cardItem.textContent = card[1];
     document.getElementById('dealer-center').appendChild(cardItem);
     // ** console.log("activedeck",activeDeck);
     // ** console.log("cardsPlayer",cardsPlayer);
+    var exactImage = getCardImage(card[1]);
+    var cardImage = document.createElement('img');
+    cardImage.setAttribute("src","images/cards.png");
+    cardImage.style.position = 'absolute';
+    cardImage.style.top = "-"+exactImage[1]+"px";
+    cardImage.style.left = "-"+exactImage[0]+"px";
+    cardItem.appendChild(cardImage);
   }
 
   var displayPlayerCards = function(card) {
     cardsPlayer.push(card[1]);
     activeDeck.splice(card[0],1);
+
+
+
+    // var cardImage = pictureCard(card[1]);
     // ** console.log("removing pos ---->["+card[0]+"] from activeDeck" );
     // ** console.log("activeDeck--->", activeDeck);
     // ** console.log("cardsPlayer--->", cardsPlayer);
     var cardItem = document.createElement('div');
-    cardItem.className += "card-item";
+    cardItem.className += "card-item sprite";
     cardItem.dataset.cardPos = cardsPlayer.length - 1;
     cardItem.textContent = card[1];
     document.getElementById('player-center').appendChild(cardItem);
     /* more here */
+
+    // var c = document.getElementById('player-center').lastChild;
+    // var ctx = c.getContext("2d");
+    // var img = document.getElementById('img-of-img');
+    // ctx.drawImage(img,0,0,79,123,0,0);
+    var exactImage = getCardImage(card[1]);
+    var cardImage = document.createElement('img');
+    cardImage.setAttribute("src","images/cards.png");
+    cardImage.style.position = 'absolute';
+    cardImage.style.top = "-"+exactImage[1]+"px";
+    cardImage.style.left = "-"+exactImage[0]+"px";
+    cardItem.appendChild(cardImage);
+
+
     // ** console.log("activedeck",activeDeck);
     // ** console.log("cardsPlayer",cardsPlayer);
+
+
+
+    // cardImage.style.position = 'absolute';
+    //cardItem.appendChild(cardImage);
+
+
   }
 
   var newHand = function() {
@@ -266,6 +300,22 @@ console.log("initialSet of Table in progress...");
 
   var clearmoney = function() {
     document.getElementById("bet-amount").textContent = "0";
+  }
+
+  var getCardImage = function(onecard) {
+    console.log("onecard",onecard);
+    var alp = onecard.slice(0,1);
+    var num = onecard.slice(1,onecard.length);
+    console.log(">>>>>>>>>>>>>>>>>",alp, num);
+    var y = 0;
+    if (alp == "D") { y = 1};
+    if (alp == "H") { y = 2};
+    if (alp == "S") { y = 3};
+    var posxy = [];
+    posxy[0] = Number(cardwpx) * (Number(num)-1);
+    posxy[1] = Number(cardhpx) * Number(y);
+    console.log(">>>>>Coord>>>>>>>",posxy);
+    return posxy;
   }
 
   var storyTeller = function(a,text1) {

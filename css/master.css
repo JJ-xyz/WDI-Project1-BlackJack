@@ -10,7 +10,9 @@ body {
 side {
   /*background: yellow;*/
   position: absolute;
-  margin-left: 75vw;
+  top: 20vh;
+  left: 78vw;
+
 }
 .container {
   display: flex;
@@ -26,6 +28,11 @@ h4 {
   font-size: 14px;
   color: gray;
 }
+p {
+  font-family: monospace;
+  font-size: 2vh;
+  line-height: 40%;
+}
 #dealer-info {
   margin-top: 5vh;
   margin-left: 23vw;
@@ -33,19 +40,22 @@ h4 {
   height: 7vh;
   text-align: center;
   font-family: sans-serif;
+  -ms-transform: rotate(-11deg); /* IE 9 */
+  -webkit-transform: rotate(-11deg); /* Chrome, Safari, Opera */
+  transform: rotate(-11deg);
 }
 #dealer-center {
   margin-top: 13vh;
-  margin-left: 37vw;
-  width: 25vw;
+  margin-left: 20vw;
+  width: 60vw;
   height: 8vh;
   display: flex;
   display: -webkit-flex;
 }
 #player-center {
   margin-top: 0vh;
-  margin-left: 37vw;
-  width: 25vw;
+  margin-left: 20vw;
+  width: 60vw;
   height: 8vh;
   display: flex;
   display: -webkit-flex;
@@ -82,11 +92,25 @@ h4 {
   background-color: silver;
 }
 .card-item {
-  width: 40px;
-  height: 50px;
+  width: 79px;
+  height: 123px;
   float: center;
   background-color: yellow;
   /*flex-flow: row;
   flex-wrap: wrap;*/
   border: 2px solid black;
+  /*transform: scale(0.6,0.6);*/
+
+}
+#img-of-img {
+  top: -492px;
+  left: -158px;
+  position: absolute;
+}
+.sprite {
+  position: relative;
+  width: 79px;
+  height: 123px;
+  overflow: hidden;
+  /*transform: scale(0.6,0.6);*/
 }
