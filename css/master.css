@@ -18,6 +18,12 @@ side {
   display: flex;
   justify-content: center;
 }
+h2 {
+  font-family: fantasy;
+  line-height: 50%;
+
+
+}
 h3 {
   font-family: "Courier New" Courier, monospace;
   font-size: 16px;
@@ -99,7 +105,7 @@ p {
   /*flex-flow: row;
   flex-wrap: wrap;*/
   border: 2px solid black;
-  /*transform: scale(0.6,0.6);*/
+
 
 }
 #img-of-img {
@@ -112,5 +118,5 @@ p {
   width: 79px;
   height: 123px;
   overflow: hidden;
-  /*transform: scale(0.6,0.6);*/
+  transform: scale(0.8,0.8);
 }

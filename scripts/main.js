@@ -12,6 +12,8 @@ window.onload = function() {
   var currentBet = 0;
   var cardwpx = 79;
   var cardhpx = 123;
+  var firstDraw = true;
+  var firstDealer =[];
 
   var initialSet = function() {
     // here: first two cards.
@@ -138,6 +140,9 @@ console.log("initialSet of Table in progress...");
   document.getElementById('new-hand').removeAttribute('disabled','');
   // document.getElementById('new-hand').setAttribute('disabled','');
   // document.getElementById('new-hand').setAttribute('disabled','');
+  var firstcard = document.getElementById('dealer-center').children[0];
+  firstcard.children[0].style.top = "-"+firstDealer[1]+"px";
+  firstcard.children[0].style.left = "-"+firstDealer[0]+"px";
 }
 
   var logRegister = function(action,amount,total) {
@@ -183,9 +188,18 @@ console.log("initialSet of Table in progress...");
     var cardImage = document.createElement('img');
     cardImage.setAttribute("src","images/cards.png");
     cardImage.style.position = 'absolute';
-    cardImage.style.top = "-"+exactImage[1]+"px";
-    cardImage.style.left = "-"+exactImage[0]+"px";
-    cardItem.appendChild(cardImage);
+    if (firstDraw) {
+      cardImage.style.top = "-492px";
+      cardImage.style.left = "-158px";
+      cardItem.appendChild(cardImage);
+      firstDraw = false;
+      firstDealer = exactImage;
+    } else {
+      cardImage.style.top = "-"+exactImage[1]+"px";
+      cardImage.style.left = "-"+exactImage[0]+"px";
+      cardItem.appendChild(cardImage);
+    }
+
   }
 
   var displayPlayerCards = function(card) {
@@ -234,6 +248,8 @@ console.log("initialSet of Table in progress...");
     cardsPlayer = [];
     cardsDealer = [];
     currentBet = 0;
+    firstDraw = true;
+    firstDealer = [];
     document.getElementById("dealer-center").innerHTML = '';
     document.getElementById("player-center").innerHTML = '';
     document.getElementById("dealer-info").innerHTML = '';
